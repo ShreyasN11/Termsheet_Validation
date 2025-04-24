@@ -10,7 +10,7 @@ export default function Signin(){
         //   backgroundPosition: 'center',
         // }}
         >
-            <SignIn signInUrl="/login" forceRedirectUrl="/" />
+            <SignIn signInUrl="/login" forceRedirectUrl="/dashboard" />
         </div>
 
     )

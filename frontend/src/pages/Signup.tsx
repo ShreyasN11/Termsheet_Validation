@@ -10,7 +10,7 @@ export default function Signup() {
         //   backgroundPosition: 'center',
         // }}
         >
-            <SignUp signInUrl="/signin" forceRedirectUrl = {"/"} />
+            <SignUp signInUrl="/signin" forceRedirectUrl = {"/dashboard"} />
         </div>
   );
 }
