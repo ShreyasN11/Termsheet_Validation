@@ -51,23 +51,23 @@ export default function Index() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-        <div className="lg:col-span-2">
+        <div className="lg:col-span-3">
           <ProcessingStatus />
         </div>
-        <div>
+        {/* <div>
           <RecentAlerts />
-        </div>
+        </div> */}
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+      {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
         <FinancialTermsChart />
         <ValidationTrends />
-      </div>
+      </div> */}
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+      {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
         <ComplianceStatus />
         <APIStatus />
-      </div>
+      </div> */}
     </MainLayout>
   );
 }

@@ -27,7 +27,7 @@ const sidebarItems: SidebarItem[] = [
   { icon: Home, label: "Dashboard", path: "/" },
   { icon: FileText, label: "Documents", path: "/documents" },
   { icon: FileCheck, label: "Validations", path: "/validations" },
-  { icon: BarChart2, label: "Analytics", path: "/analytics" },
+  // { icon: BarChart2, label: "Analytics", path: "/analytics" },
   { icon: AlertTriangle, label: "Compliance", path: "/compliance" },
   { icon: Settings, label: "Settings", path: "/settings" },
 ];

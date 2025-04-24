@@ -5,6 +5,9 @@ import DocumentUploader from "@/components/documents/DocumentUploader";
 import DocumentList from "@/components/documents/DocumentList";
 import DocumentViewer from "@/components/documents/DocumentViewer";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Mail } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 // Mock document for initial state
 const mockSelectedDocument = {
@@ -81,6 +84,41 @@ export default function Documents() {
         </TabsList>
         
         <TabsContent value="upload" className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          <Card className="dashboard-card">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-lg font-semibold">Connect to Mail</CardTitle>
+              <CardDescription>Connect to Gmail to Automate</CardDescription>
+            </CardHeader>
+            <CardContent>
+            <div className="space-y-3">
+              <Button
+                variant="outline"
+                className="w-full flex items-center justify-center gap-2 hover:bg-white hover:text-black"
+              >
+                <Mail className="w-5 h-5" />
+                Connect to Gmail
+              </Button>
+            </div>
+            </CardContent>
+          </Card>
+          <Card className="dashboard-card">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-lg font-semibold">Connect to Outlook</CardTitle>
+              <CardDescription>Connect to Outlook to Automate Termsheet Analysis</CardDescription>
+            </CardHeader>
+            <CardContent>
+            <Button
+                variant="outline"
+                className="w-full flex items-center justify-center gap-2 hover:bg-white hover:text-black"
+              >
+                <Mail className="w-5 h-5" />
+                Connect to Gmail
+              </Button>
+            </CardContent>
+          </Card> 
+          </div>
+          
           <DocumentUploader onUpload={handleFileUpload} />
           
           {documents.length > 0 && (

@@ -14,6 +14,8 @@ import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
+
 export default function Header() {
   const [searchActive, setSearchActive] = useState(false);
   const [unreadCount] = useState(3);
@@ -92,7 +94,14 @@ export default function Header() {
           </DropdownMenuContent>
         </DropdownMenu>
 
-        <DropdownMenu>
+        <SignedOut>
+          <SignInButton className="flex items-center space-x-2 bg-black text-white rounded border-solid hover:bg-green-600 mx-auto p-2 px-4" forceRedirectUrl="/dashboard" />
+          </SignedOut>
+          <SignedIn>
+          <UserButton className="bg-black text-white rounded p-2" />
+        </SignedIn>
+
+        {/* <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" size="icon">
               <User size={18} />
@@ -107,7 +116,7 @@ export default function Header() {
             <DropdownMenuSeparator />
             <DropdownMenuItem>Log out</DropdownMenuItem>
           </DropdownMenuContent>
-        </DropdownMenu>
+        </DropdownMenu> */}
       </div>
     </header>
   );

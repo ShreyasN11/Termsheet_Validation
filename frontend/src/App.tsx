@@ -10,6 +10,8 @@ import Analytics from "./pages/Analytics";
 import Validations from "./pages/Validations";
 import Compliance from "./pages/Compliance";
 import NotFound from "./pages/NotFound";
+import Signup from "./pages/Signup";
+import Signin from "./pages/Signin";
 
 const queryClient = new QueryClient();
 
@@ -32,6 +34,8 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/signin" element={<Signin />} />
           <Route path="/" element={<Index />} />
           <Route path="/documents" element={<Documents />} />
           <Route path="/validations" element={<Validations />} />
