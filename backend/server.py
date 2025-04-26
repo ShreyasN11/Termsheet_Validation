@@ -14,7 +14,7 @@ from fetch_and_send import fetch_and_send_pdfs
 from fetch_and_send_text import fetch_and_process_emails
 from main import process_pdf_files
 
-app = Flask(__name__)
+# app = Flask(__name__)
 
 # Define upload and text folders
 UPLOAD_FOLDER = 'uploads'

@@ -24,7 +24,7 @@ export default function Index() {
   const [validationRate, setValidationRate] = useState(0);
   const [issues, setIssues] = useState(0);
   useEffect(() => {
-    // console.log(userEmail);
+    console.log(userEmail);
     const fetchData = async () => {
       const resp = await fetch(
         `http://localhost:5000/trader_stats?email=${userEmail}`,
@@ -41,8 +41,8 @@ export default function Index() {
     };
     fetchData();
   }, []); // Empty dependency array to run only once on mount
-  console.log("User Name:", userName);
-  console.log("User Email:", userEmail);
+  // console.log("User Name:", userName);
+  // console.log("User Email:", userEmail);
   return (
     <MainLayout>
       <div className="mb-6">
