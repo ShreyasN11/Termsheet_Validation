@@ -2,3 +2,7 @@ Flask
 requests
 imap-tools
 python-dotenv
+pymongo
+flask-cors
+pymupdf
+apscheduler

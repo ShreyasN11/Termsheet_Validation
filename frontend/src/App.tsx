@@ -12,6 +12,7 @@ import Compliance from "./pages/Compliance";
 import NotFound from "./pages/NotFound";
 import Signup from "./pages/Signup";
 import Signin from "./pages/Signin";
+import Versions from "./pages/Versions";
 
 const queryClient = new QueryClient();
 
@@ -43,6 +44,8 @@ const App = () => (
           <Route path="/analytics" element={<Analytics />} />
           <Route path="/compliance" element={<Compliance />} />
           <Route path="/settings" element={<Index />} />
+          <Route path="/versions" element={<Versions />} />
+          {/* <Route path="validation/:id" element={<ValidationViewer  />} /> */}
           {/* Catch-all route */}
           <Route path="*" element={<NotFound />} />
         </Routes>
