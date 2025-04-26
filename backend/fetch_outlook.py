@@ -5,12 +5,16 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-EMAIL = os.getenv("EMAIL") 
-PASSWORD = os.getenv("EMAIL_PASSWORD")
-IMAP_SERVER = os.getenv("IMAP_SERVER")
+EMAIL = os.getenv("OUTLOOK_EMAIL") 
+PASSWORD = os.getenv("OUTLOOK_PASSWORD")
+IMAP_SERVER = os.getenv("IMAP_SERVER2")
 UPLOAD_URL = os.getenv("FLASK_SERVER_URL")
 
-DOWNLOAD_DIR = "files"
+print("Email:", EMAIL)
+print("Password exists:", PASSWORD is not None)
+print("IMAP Server:", IMAP_SERVER)
+
+DOWNLOAD_DIR = "downloads"
 os.makedirs(DOWNLOAD_DIR, exist_ok=True)
 
 def send_to_flask(file_path):
@@ -20,7 +24,6 @@ def send_to_flask(file_path):
         print(f"Sent {file_path} → {response.status_code} | {response.text}")
 
 def fetch_and_send_pdfs():
-    print("Fetching and sending PDFs...")
     with MailBox(IMAP_SERVER).login(EMAIL, PASSWORD, 'INBOX') as mailbox:
         for msg in mailbox.fetch(AND(seen=False)):
             for att in msg.attachments:
@@ -31,5 +34,5 @@ def fetch_and_send_pdfs():
                     print(f"Downloaded: {att.filename}")
                     send_to_flask(filepath)
 
-# if __name__ == "__main__":
-#     fetch_and_send_pdfs()
+if __name__ == "__main__":
+    fetch_and_send_pdfs()
