@@ -1,49 +1,47 @@
 from flask import Flask, request, jsonify
 import os
+import json
 from flask_cors import CORS
+from flask_apscheduler import APScheduler
+
+# Import your blueprints and functions
 from routes.termsheet_routes import termsheet_bp
 from routes.trader_routes import trader_bp
 from routes.stats_routes import stats_bp
-
-app = Flask(__name__)
-CORS(app)
-import json
-from apscheduler.schedulers.background import BackgroundScheduler
-from time import sleep
 from fetch_and_send import fetch_and_send_pdfs
 from fetch_and_send_text import fetch_and_process_emails
 from main import process_pdf_files
 
-# app = Flask(__name__)
-
-# Define upload and text folders
 UPLOAD_FOLDER = 'uploads'
-TEXT_FOLDER = 'texts'  # Folder for storing text-based key-value data
+TEXT_FOLDER = 'texts'
+
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(TEXT_FOLDER, exist_ok=True)
 
-# Define the functions to be scheduled
+class Config:
+    SCHEDULER_API_ENABLED = True
+
+app = Flask(__name__)
+app.config.from_object(Config())
+CORS(app)
+
+# Initialize APScheduler
+scheduler = APScheduler()
+scheduler.init_app(app)
+scheduler.start()
+
+# Scheduled jobs
+@scheduler.task('interval', id='fetch_and_send_pdfs', minutes=5)
 def scheduled_fetch_and_send_pdfs():
     fetch_and_send_pdfs()
 
+@scheduler.task('interval', id='fetch_and_process_emails', minutes=5)
 def scheduled_fetch_and_process_emails():
     fetch_and_process_emails()
 
+@scheduler.task('interval', id='process_pdf_files', minutes=5)
 def scheduled_process_pdf_files():
     process_pdf_files()
-
-# Set up the APScheduler
-scheduler = BackgroundScheduler()
-
-# Add jobs with a 5-minute interval and a 10-second delay between each function call
-scheduler.add_job(scheduled_fetch_and_send_pdfs, 'interval', minutes=5, id='fetch_and_send_pdfs')
-scheduler.add_job(lambda: sleep(10), 'interval', minutes=5, id='delay_10_seconds')  # 10-second delay
-scheduler.add_job(scheduled_fetch_and_process_emails, 'interval', minutes=5, id='fetch_and_process_emails')
-scheduler.add_job(lambda: sleep(10), 'interval', minutes=5, id='delay_10_seconds_2')  # Another 10-second delay
-scheduler.add_job(scheduled_process_pdf_files, 'interval', minutes=5, id='process_pdf_files')
-
-# Start the scheduler
-scheduler.start()
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
@@ -70,10 +68,9 @@ def upload_text():
     if not subject or not key_value_pairs:
         return jsonify({'error': 'Invalid data'}), 400
 
-    # Save key-value pairs into a JSON file named after the sanitized subject
     safe_subject = "".join(c if c.isalnum() or c in (' ', '-', '_') else '_' for c in subject)
     save_path = os.path.join(TEXT_FOLDER, f"{safe_subject}.json")
-    
+
     with open(save_path, 'w') as f:
         json.dump(key_value_pairs, f, indent=4)
 
@@ -81,16 +78,5 @@ def upload_text():
 
     return jsonify({'message': 'Text data received and saved'}), 200
 
-# Flask route for running the server
 if __name__ == "__main__":
     app.run(debug=True)
-
-# Make sure the scheduler is shut down properly when the application exits
-@app.before_first_request
-def start_scheduler():
-    print("Scheduler started.")
-
-@app.teardown_appcontext
-def shutdown_scheduler(exception=None):
-    scheduler.shutdown()
-    print("Scheduler shut down.")
