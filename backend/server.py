@@ -1,10 +1,12 @@
 from flask import Flask, request, jsonify
 import os
+from flask_cors import CORS
 from routes.termsheet_routes import termsheet_bp
 from routes.trader_routes import trader_bp
 from routes.stats_routes import stats_bp
 
 app = Flask(__name__)
+CORS(app)
 UPLOAD_FOLDER = 'uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 

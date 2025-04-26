@@ -3,4 +3,4 @@ requests
 imap-tools
 python-dotenv
 pymongo
-
+flask-cors
