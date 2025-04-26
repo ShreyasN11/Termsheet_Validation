@@ -11,7 +11,8 @@ import {
   ChevronRight,
   Search,
   FileCheck,
-  Bell
+  Bell,
+  GitGraph
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -27,8 +28,9 @@ const sidebarItems: SidebarItem[] = [
   { icon: Home, label: "Dashboard", path: "/" },
   { icon: FileText, label: "Documents", path: "/documents" },
   { icon: FileCheck, label: "Validations", path: "/validations" },
+  { icon: GitGraph, label: "Version", path: "/versions" },
   // { icon: BarChart2, label: "Analytics", path: "/analytics" },
-  { icon: AlertTriangle, label: "Compliance", path: "/compliance" },
+  // { icon: AlertTriangle, label: "Compliance", path: "/compliance" },
   { icon: Settings, label: "Settings", path: "/settings" },
 ];
 

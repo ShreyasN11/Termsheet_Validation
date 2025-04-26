@@ -41,6 +41,8 @@ export default function Index() {
     };
     fetchData();
   }, []); // Empty dependency array to run only once on mount
+  console.log("User Name:", userName);
+  console.log("User Email:", userEmail);
   return (
     <MainLayout>
       <div className="mb-6">
