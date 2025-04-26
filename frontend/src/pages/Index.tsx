@@ -8,8 +8,14 @@ import ComplianceStatus from "@/components/dashboard/ComplianceStatus";
 import APIStatus from "@/components/dashboard/APIStatus";
 import RecentAlerts from "@/components/dashboard/RecentAlerts";
 import { FileText, AlertTriangle, CheckCircle2, TrendingUp } from "lucide-react";
+import { useUser } from "@clerk/clerk-react";
 
 export default function Index() {
+  const { user } = useUser();
+  const userName = user?.fullName || "User";
+  const userEmail = user?.emailAddresses[0]?.emailAddress || "";
+  console.log("User Name:", userName);
+  console.log("User Email:", userEmail);
   return (
     <MainLayout>
       <div className="mb-6">
