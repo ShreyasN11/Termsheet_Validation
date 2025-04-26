@@ -1,5 +1,8 @@
 from flask import Flask, request, jsonify
 import os
+from routes.termsheet_routes import termsheet_bp
+from routes.trader_routes import trader_bp
+from routes.stats_routes import stats_bp
 
 app = Flask(__name__)
 UPLOAD_FOLDER = 'uploads'
@@ -18,6 +21,10 @@ def upload_file():
     # Optional: Add your PDF processing logic here
 
     return jsonify({'message': 'File received and saved'}), 200
+
+app.register_blueprint(termsheet_bp)
+app.register_blueprint(trader_bp)
+app.register_blueprint(stats_bp)
 
 if __name__ == "__main__":
     app.run(debug=True)
