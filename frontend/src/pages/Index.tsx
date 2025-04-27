@@ -19,7 +19,8 @@ import { useEffect } from "react";
 export default function Index() {
   const { user } = useUser();
   const userName = user?.fullName || "User";
-  const userEmail = user?.emailAddresses[0]?.emailAddress || "";
+  const userEmail =
+    user?.emailAddresses[0]?.emailAddress || "dakshjain624@gmail.com";
   const [totaldocs, setTotalDocs] = useState(0);
   const [validationRate, setValidationRate] = useState(0);
   const [issues, setIssues] = useState(0);
