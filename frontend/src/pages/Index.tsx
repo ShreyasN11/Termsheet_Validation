@@ -17,21 +17,21 @@ import {
 import { useEffect } from "react";
 
 export default function Index() {
-  const { user } = useUser();
-  const userName = user?.fullName || "User";
-  const userEmail =
-    user?.emailAddresses[0]?.emailAddress || "dakshjain624@gmail.com";
+  // const { user } = useUser();
+  // const userName = user?.fullName || "User";
+  // const userEmail = user?.emailAddresses[0]?.emailAddress || "";
   const [totaldocs, setTotalDocs] = useState(0);
   const [validationRate, setValidationRate] = useState(0);
   const [issues, setIssues] = useState(0);
+  const { user, isLoaded } = useUser();
+
   useEffect(() => {
-    console.log(userEmail);
+    if (!isLoaded || !user) return; // Wait until user is loaded
+
     const fetchData = async () => {
       const resp = await fetch(
-        `http://localhost:5000/trader_stats?email=${userEmail}`,
-        {
-          method: "GET",
-        }
+        `http://localhost:5000/trader_stats?email=${user.emailAddresses[0]?.emailAddress}`,
+        { method: "GET" }
       );
       if (resp.ok) {
         const data = await resp.json();
@@ -41,7 +41,7 @@ export default function Index() {
       }
     };
     fetchData();
-  }, []); // Empty dependency array to run only once on mount
+  }, [user, isLoaded]); // Empty dependency array to run only once on mount
   // console.log("User Name:", userName);
   // console.log("User Email:", userEmail);
   return (
