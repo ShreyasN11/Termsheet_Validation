@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -17,13 +16,17 @@ import Versions from "./pages/Versions";
 const queryClient = new QueryClient();
 
 // Configure external links to open in new tabs
-if (typeof window !== 'undefined') {
-  document.addEventListener('click', (e) => {
+if (typeof window !== "undefined") {
+  document.addEventListener("click", (e) => {
     const target = e.target as HTMLElement;
-    const anchor = target.closest('a');
-    if (anchor && anchor.getAttribute('href')?.startsWith('http') && !anchor.hasAttribute('target')) {
-      anchor.setAttribute('target', '_blank');
-      anchor.setAttribute('rel', 'noopener noreferrer');
+    const anchor = target.closest("a");
+    if (
+      anchor &&
+      anchor.getAttribute("href")?.startsWith("http") &&
+      !anchor.hasAttribute("target")
+    ) {
+      anchor.setAttribute("target", "_blank");
+      anchor.setAttribute("rel", "noopener noreferrer");
     }
   });
 }
@@ -35,12 +38,13 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-        <Route path="/" element={<Signup />} />
+          <Route path="/" element={<Signup />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/signin" element={<Signin />} />
           <Route path="/dashboard" element={<Index />} />
           <Route path="/documents" element={<Documents />} />
-          <Route path="/validations" element={<Validations />} />
+          {/* <Route path="/validationx" element={<Validations />} /> */}
+          <Route path="/validation/:id" element={<Validations />} />
           <Route path="/analytics" element={<Analytics />} />
           <Route path="/compliance" element={<Compliance />} />
           <Route path="/settings" element={<Index />} />

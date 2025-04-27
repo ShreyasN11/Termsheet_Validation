@@ -8,3 +8,4 @@ pymupdf
 apscheduler
 markitdown[all]
 groq
+flask_apscheduler

@@ -54,10 +54,12 @@ def load_reference_swap(trade_id):
         match = df[df[trade_id_col] == trade_id_str]
         if not match.empty:
             return match.iloc[0].to_dict()
-        
+
         # If no exact match, try case-insensitive comparison
         match = df[df[trade_id_col].str.lower() == trade_id_str.lower()]
+        print(match)
         if not match.empty:
+            print(match.iloc[0])
             return match.iloc[0].to_dict()
             
         return None
