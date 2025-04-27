@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 import os
 from flask_cors import CORS
+from gemini_classify import classify_termsheet
 from routes.termsheet_routes import termsheet_bp
 from routes.trader_routes import trader_bp
 from routes.stats_routes import stats_bp
@@ -32,15 +33,20 @@ def scheduled_fetch_and_process_emails():
 def scheduled_process_pdf_files():
     process_pdf_files()
 
+def schedule_classification():
+    classify_termsheet()
+
 # Set up the APScheduler
 scheduler = BackgroundScheduler()
 
 # Add jobs with a 5-minute interval and a 10-second delay between each function call
-scheduler.add_job(scheduled_fetch_and_send_pdfs, 'interval', minutes=5, id='fetch_and_send_pdfs')
-scheduler.add_job(lambda: sleep(10), 'interval', minutes=5, id='delay_10_seconds')  # 10-second delay
-scheduler.add_job(scheduled_fetch_and_process_emails, 'interval', minutes=5, id='fetch_and_process_emails')
-scheduler.add_job(lambda: sleep(10), 'interval', minutes=5, id='delay_10_seconds_2')  # Another 10-second delay
-scheduler.add_job(scheduled_process_pdf_files, 'interval', minutes=5, id='process_pdf_files')
+# scheduler.add_job(scheduled_fetch_and_send_pdfs, 'interval', minutes=5, id='fetch_and_send_pdfs')
+# scheduler.add_job(lambda: sleep(10), 'interval', minutes=5, id='delay_10_seconds')  # 10-second delay
+# scheduler.add_job(scheduled_fetch_and_process_emails, 'interval', minutes=5, id='fetch_and_process_emails')
+# scheduler.add_job(lambda: sleep(10), 'interval', minutes=5, id='delay_10_seconds_2')  # Another 10-second delay
+# scheduler.add_job(scheduled_process_pdf_files, 'interval', minutes=5, id='process_pdf_files')
+# scheduler.add_job(lambda: sleep(10), 'interval', minutes=5, id='delay_10_seconds_3')  # Another 10-second delay
+scheduler.add_job(schedule_classification, 'interval', minutes=1, id='classification')
 
 # Start the scheduler
 scheduler.start()

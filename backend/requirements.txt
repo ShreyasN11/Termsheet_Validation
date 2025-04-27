@@ -6,3 +6,5 @@ pymongo
 flask-cors
 pymupdf
 apscheduler
+markitdown[all]
+groq
